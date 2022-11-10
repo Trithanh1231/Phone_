@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+		<div th:fragment="shopping_cart">
+			<!-- <table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Amount</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in cart.items">
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.price | number :2}}</td>
+						<td><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1"></td>
+						<td>${{item.qty*item.price | number:2}}</td>
+						<td>
+							<button type="button" ng-click="cart.remove(item.id)" class="btn btn-outline-primary">Delete</button>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<h4>TÃ¡Â»â€¢ng TiÃ¡Â»ï¿½n: {{cart.amount | number:2}}</h4>
+			<div >
+				<button type="button" ng-click="cart.clear()" class="btn btn-outline-danger">Clear</button>
+				<a th:href="@{/order/checkout}" class="btn btn-outline-primary" >Check Out </a>
+			</div> -->
+			<div class="cart-main-area pt-70px pb-100px">
+				<div class="container">
+					<h3 class="cart-page-title">Sản phẩm của bạn</h3>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+							<form action="#">
+								<div class="table-content table-responsive cart-table-content">
+									<table>
+										<thead>
+											<tr>
+												<th>Hình</th>
+												<th>Tên sản phẩm</th>
+												<th>Đơn giá</th>
+												<th>Số lượng</th>
+												<th>Tổng giá</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in cart.items">
+												<td class="product-thumbnail"><a href="#"><img
+														class="img-responsive ml-15px"
+														th:src="@{|/assets/images/{{item.image}}|}" alt="" /></a></td>
+												<td class="product-name"><a href="#">{{item.name}}</a></td>
+												<td class="product-price-cart"><span class="amount">{{(item.price)
+														-(item.price*item.discount.number) | number}}</span></td>
+												<td class="product-quantity">
+													<div>
+														<input ng-change="cart.saveToLocalStorage()"
+															ng-model="item.qty" type="number" min="1" />
+													</div>
+												</td>
+												<td class="product-subtotal">${{(item.qty)*((item.price)
+													-(item.price*item.discount.number)) | number}}</td>
+												<td class="product-remove"><a
+													ng-click="cart.remove(item.id)"><i class="fa fa-times"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="cart-shiping-update-wrapper">
+											<div class="cart-shiping-update">
+												<a href="/product/listall">Tiếp tục mua hàng</a>
+											</div>
+											<div class="cart-clear">
+												<button>Cập nhật giỏ hàng</button>
+												<a ng-click="cart.clear()" class="btn btn-outline-danger"
+													href="#">Làm mới</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<div th:if="${message}">
+							<label style="font-family: 'Patrick Hand', cursive;">[[${message}]]</label>
+							</div>
+							<div class="row">
+
+								<div class="col-lg-4 col-md-6 mb-lm-30px">
+									<div class="discount-code-wrapper">
+										<div class="title-wrap">
+											<h4 class="cart-bottom-title section-bg-gray">Mã phiếu giảm giá</h4>
+										</div>
+										<div class="discount-code">
+											<p>Nhập mã phiếu giảm giá của bạn nếu bạn có.</p>
+											<form action="/product/voucher" method="get">
+												<select class="form-select mb-2"
+													aria-label="Default select example" name="product_id">
+													<option ng-repeat="item in cart.items" value="{{item.id}}">{{item.name}}</option>
+													
+												</select>
+												 <input type="text" required="" name="voucher_code" />
+												<button class="cart-btn-2" type="submit">Sử dụng mã</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-8 col-md-12 mt-md-30px">
+									<div class="grand-totall">
+										<div class="title-wrap">
+											<h4 class="cart-bottom-title section-bg-gary-cart">Tổng số giỏ hàng</h4>
+										</div>
+										<h5>
+											Tổng sản phẩm <span>{{cart.amount | number}} VNĐ</span>
+										</h5>
+										<div class="total-shipping">
+											<h5>Phí ship</h5>
+											<ul>
+												<li><input type="checkbox" /> Tiêu chuẩn <span>20,000 VNĐ</span></li>
+												<li><input type="checkbox" /> Tốc hành <span>50,000 VNĐ</span></li>
+												<li>Giảm giá:<span>[[${session.giamgia}]] VNĐ</span></li>
+											</ul>
+											<input type="hidden" name="giamgia" th:value="${session.giamgia}">
+										</div>
+										<h4 class="grand-totall-title">
+											Tổng tiền <span>{{cart.amount +30000 - [[${session.giamgia}]] | number}} VNĐ</span>
+										</h4>
+										<a th:href="@{/order/checkout}">tiến hành thanh toán</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

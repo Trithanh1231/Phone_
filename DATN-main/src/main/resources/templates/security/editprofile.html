@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+	<div th:if="${mess}" style="text-align: center;">
+		[[${mess}]]
+	</div>
+	<form action="/security/login/editprofile" method="post"
+		enctype="multipart/form-data" modelAttribute="accountRequest">
+		<div class="login-box">
+			<div class="row" style="margin-left: 30px; margin-right: 30px">
+				<div class="form-group col-md-6">
+					<label for="">UserName</label> <input type="text"
+						class="form-control" placeholder="No enter" name="username"
+						th:value="${#request.remoteUser}" readonly="readonly" />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="">FullName</label> <input type="text"
+						class="form-control" placeholder="Enter Name" name="fullname" th:value="${session.ten}"/>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="">Email</label> <input type="email"
+						class="form-control" placeholder="Enter Price" name="email" th:value="${session.email}"  />
+				</div>
+				<div class="form-group col-md-6 mb-3">
+					<label for="">File Photo</label>
+					<div class="custom-file">
+						<input  type="file" name="imageFile" class="save_button"
+							id="customFile" onchange="chooseFile(this)"> 
+					</div>
+				</div>
+				<div class="col-2">
+				<img src="@{|/assets/images/${accountRequest.imageName}|}" class="rounded-circle mx-auto" id="image" width="120px" height="120px" style="display: none;" />
+				</div>
+			</div>
+		</div>
+		<div class="card-footer bg-white">
+			<div class="form-group col-md-12">
+				<button class="btn btn-primary">Update</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+     function chooseFile(fileInput){
+    	 if(fileInput.files && fileInput.files[0]){
+    		 var reader = new FileReader();
+    		 reader.onload = function(event){
+    			 $('#image').attr('src',event.target.result);
+    			 document.getElementById("image").style.display = 'block';
+    		 }
+    		 reader.readAsDataURL(fileInput.files[0]);
+    	 }
+     }
+</script>
+	</main>
+</body>
+</html>

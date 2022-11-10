@@ -1,0 +1,15 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a data-toggle="tab" data-target="#edit" class="nav-link active" href="" aria-controls="nav-home" aria-selected="true">Product Edition</a>
+    <a data-toggle="tab" data-target="#list" class="nav-link"   href="" >List of Products</a>
+
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+ <div id="edit" class="tab-pane fade">
+		<div ng-include="'/assets/admin/product/_form.html'"></div>
+	</div>
+	<div id="list" class="tab-pane fade in active">
+		<div ng-include="'/assets/admin/product/_table.html'"></div>
+	</div>
+</div>

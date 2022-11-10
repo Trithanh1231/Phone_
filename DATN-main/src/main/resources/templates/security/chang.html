@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+	<div class="login-box" style="margin-top: 10px">
+   <div class="row">
+	<div class="col">
+	 <h2 style="text-align: center;">Change Password</h2>
+	</div>
+	<div th:if="${message}">
+		<h2>[[${message}]]</h2>
+	</div>
+	</div>
+    <form action="/security/login/chang"  method="post">
+      <div class="user-box" style=" margin-left: 350px; margin-right: 350px">
+      <input type="hidden" name="username" th:value="${#request.remoteUser}">
+        <input type="password" name="password" required="">
+        <label>Current Password</label>
+      </div>
+      <div class="user-box" style=" margin-left: 350px; margin-right: 350px">
+        <input type="password" name="password1" required="">
+        <label>New Password</label>
+      </div>
+       <div class="user-box" style=" margin-left: 350px; margin-right: 350px">
+        <input type="password" name="password2" required="" oninput="checkPasswordMatch(this);">
+        <label>Enter the password</label>
+      </div>
+
+      <a href="#" style="margin-top: -20px">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="save_button" style="margin-left: 350px; margin-bottom: 10px">
+       <button type="submit" class="btn">Change</button>
+       </div>
+      </a>
+    </form>
+  </div>
+		
+		
+	</main>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div class="row">
+										<div class="row mb-n-30px">
+										<div th:each="p1:${p}" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px">
+											
+											<div class="product">
+												<span class="badges"> <span class="sale">[[${p1.id}]]</span>
+													<span class="new">New</span>
+												</span>
+												<div class="thumb">
+													<a th:href="@{|/product/list/${p1.id}|}" class="image"> <img
+														th:src="@{|/assets/images/${p1.image}|}"
+														alt="Product" /> <img class="hover-image"
+														th:src="@{|/assets/images/${p1.image}|}"
+														alt="Product" />
+													</a>
+												</div>
+												<div class="content">
+													<span class="category"><a href="#">[[${p1.getBrand().getName()}]]</a></span>
+													<h5 class="title">
+														<a href="#">[[${p1.name}]]</a>
+													</h5>
+													<span class="price"> <span class="old">$48.50</span>
+														<span class="new">$38.50</span>
+													</span>
+												</div>
+												<div class="actions">
+													<button title="Add To Cart" class="action add-to-cart"
+														data-bs-toggle="modal" data-bs-target="#exampleModal-Cart">
+														<i class="pe-7s-shopbag"></i>
+													</button>
+													<button class="action wishlist" title="Wishlist"
+														data-bs-toggle="modal"
+														data-bs-target="#exampleModal-Wishlist">
+														<i class="pe-7s-like"></i>
+													</button>
+													<button class="action quickview"
+														data-link-action="quickview" title="Quick view"
+														data-bs-toggle="modal" data-bs-target="#exampleModal">
+														<i class="pe-7s-look"></i>
+													</button>
+													<button class="action compare" title="Compare"
+														data-bs-toggle="modal"
+														data-bs-target="#exampleModal-Compare">
+														<i class="pe-7s-refresh-2"></i>
+													</button>
+												</div>
+											</div>
+										
+										</div>
+										</div>
+									</div>

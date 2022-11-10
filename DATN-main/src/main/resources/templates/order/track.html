@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<body>
+	<main th:object="${order}">
+	<div class="row mt-3 mb-3" >
+	<div class="col">
+				<div class="col-lg-4 col-md-6 mb-lm-30px"
+					style="width: 400px; margin-left: 50px">
+					<div class="cart-tax">
+						<div class="title-wrap">
+							<h4 class="cart-bottom-title section-bg-gray">Estimate
+								Shipping And Tax</h4>
+						</div>
+						<div class="tax-wrapper">
+
+							<div class="tax-select-wrapper">
+								<div class="tax-select">
+									<label> * District </label>
+									 
+										
+									<input th:field="*{district}" class="form-control" readonly>
+								</div>
+								<div class="tax-select">
+									<label> * province </label> 
+									<input th:field="*{province}" class="form-control" readonly>
+									
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<div class="col-7" style="margin-right: 100px; width: 700px">
+		<div class="card">
+		<div class="card-header">ORDER INFORMATION</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<div>Order Number:</div>
+					<input th:field="*{id}" class="form-control" readonly>
+				</div>
+				<div class="form-group col-sm-4">
+					<div>Purchaser:</div>
+					<input th:field="*{user.username}" class="form-control" readonly>
+				</div>
+				<div class="form-group col-sm-4">
+					<div>Purchased Date:</div>
+					<input th:field="*{createDate}" class="form-control" readonly>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<div>Shipping Address:</div>
+					<textarea th:field="*{address}" class="form-control" readonly></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+	<div class="card" style="margin-left: 30px;margin-right: 30px">
+		<div class="card-header">ORDER LINE</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Image</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Price</th>
+					
+					<th scope="col">Date set row</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="detail: *{orderDetails}" th:object="${detail}">
+					<td>[[*{product.id}]]</td>
+					<td>[[*{product.name}]]</td>
+					<td><img class="img-responsive ml-15px" th:src="@{|/assets/images/${detail.product.image}|}" width="60px" height="60px" alt="" /></td>
+					<td>[[*{quantity}]]</td>
+					<td >$[[*{#numbers.formatDecimal(price*quantity,0,'COMMA',2,'POINT')}]]</td>
+					
+					<td>[[${order.createDate}]]</td>
+					
+					<td style="color: green;">[[${order.status}? 'Đang vận chuyển':'Đã hủy']]</td>
+					
+					
+				</tr>
+				 
+			</tbody>
+		</table>
+	</div>
+	</main>
+</body>
+</html>
